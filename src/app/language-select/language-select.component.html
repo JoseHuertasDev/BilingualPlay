@@ -1,0 +1,4 @@
+<select  class="custom-select custom-select-md mb-3">
+  <option selected>Elegi un idioma</option>
+  <option *ngFor="let language of languageList;" value="{{language.code}}">{{language.name}}</option>
+</select>
