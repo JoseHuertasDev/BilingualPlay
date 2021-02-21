@@ -13,10 +13,6 @@ function createWindow () {
 
 
   win.loadURL(`file://${__dirname}/dist/bilingual-play-angular/index.html`)
-
-
-
-
   //// uncomment below to open the DevTools.
   // win.webContents.openDevTools()
 
