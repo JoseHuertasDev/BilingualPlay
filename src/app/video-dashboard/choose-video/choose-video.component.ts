@@ -12,7 +12,9 @@ export class ChooseVideoComponent implements OnInit {
   constructor() {
     this.video = new Video();
   }
-
+  onPlay(): void {
+    console.log(this.video);
+  }
   ngOnInit(): void {
   }
 }

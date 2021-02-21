@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { Subtitle } from '../../Models/subtitles';
 
 @Component({
@@ -8,9 +8,9 @@ import { Subtitle } from '../../Models/subtitles';
 })
 export class SubtitleFileInputComponent implements OnInit {
   @ViewChild('inputSubtitle') inputSubtitle!: ElementRef;
-  subs: Subtitle;
+  @Input() subs!: Subtitle;
   constructor() {
-    this.subs = new Subtitle();
+
   }
 
   ngOnInit(): void {
@@ -21,7 +21,7 @@ export class SubtitleFileInputComponent implements OnInit {
     let fileName: string | undefined = element.files?.item(0)?.name;
     //With electron you can get the full absolute path of the file
     let route = this.inputSubtitle.nativeElement.files[0].path;
-    if (fileName) {
+    if (fileName && this.subs) {
       this.subs.title = fileName;
       this.subs.route = route;
     }

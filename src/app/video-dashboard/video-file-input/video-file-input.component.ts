@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { Video } from '../../Models/video';
 @Component({
   selector: 'app-video-file-input',
@@ -7,9 +7,8 @@ import { Video } from '../../Models/video';
 })
 export class VideoFileInputComponent implements OnInit {
   @ViewChild('inputVideo') inputVideo!: ElementRef;
-  video: Video;
+  @Input() video!: Video ;
   constructor() {
-    this.video = new Video();
   }
 
   ngOnInit(): void {
