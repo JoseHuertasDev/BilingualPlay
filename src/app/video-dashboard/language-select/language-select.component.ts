@@ -17,7 +17,7 @@ export class LanguageSelectComponent implements OnInit {
   }
   onSelect(): void{
     this.bindingLanguage.code = this.selectedLanguage.code;
-    this.bindingLanguage.code = this.selectedLanguage.name;
+    this.bindingLanguage.name = this.selectedLanguage.name;
   }
   ngOnInit(): void {
   }
