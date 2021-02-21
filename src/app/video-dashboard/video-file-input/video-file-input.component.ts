@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Video } from '../Models/video';
+import { Video } from '../../Models/video';
 @Component({
   selector: 'app-video-file-input',
   templateUrl: './video-file-input.component.html',

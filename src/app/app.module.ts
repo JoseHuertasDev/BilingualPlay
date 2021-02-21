@@ -1,24 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ChooseVideoComponent } from './choose-video/choose-video.component';
-import { SubtitleFileInputComponent } from './subtitle-file-input/subtitle-file-input.component';
-import { VideoFileInputComponent } from './video-file-input/video-file-input.component';
-import { LanguageSelectComponent } from './language-select/language-select.component';
+import { VideoDashboardModule } from './video-dashboard/video-dashboard.module';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ChooseVideoComponent,
-    SubtitleFileInputComponent,
-    VideoFileInputComponent,
-    LanguageSelectComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    VideoDashboardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

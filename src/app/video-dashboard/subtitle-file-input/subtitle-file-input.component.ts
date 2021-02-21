@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Subtitle } from '../Models/subtitles';
+import { Subtitle } from '../../Models/subtitles';
 
 @Component({
   selector: 'app-subtitle-file-input',
