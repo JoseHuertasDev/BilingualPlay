@@ -1,8 +1,0 @@
-<select
-  class="custom-select custom-select-md mb-3"
-  [(ngModel)]="selectedLanguage"
-  (change)="onSelect()">
-  <option *ngFor="let language of languageList; let i = index;"
-  [ngValue]="language" value="{{i+1}}">{{language.name}}</option>
-
-</select>
