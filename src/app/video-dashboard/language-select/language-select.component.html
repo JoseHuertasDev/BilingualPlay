@@ -1,4 +1,9 @@
-<select  class="custom-select custom-select-md mb-3">
+<select
+  class="custom-select custom-select-md mb-3"
+  [(ngModel)]="selectedLanguage"
+  (change)="onSelect()">
+
   <option selected>Elegi un idioma</option>
-  <option *ngFor="let language of languageList;" value="{{language.code}}">{{language.name}}</option>
+  <option *ngFor="let language of languageList;"
+  [ngValue]="language">{{language.name}}</option>
 </select>

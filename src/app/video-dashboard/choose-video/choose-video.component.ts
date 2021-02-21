@@ -1,4 +1,5 @@
 import {  Component, OnInit } from '@angular/core';
+import { Language } from 'src/app/Models/language';
 import { Video } from '../../Models/video';
 
 @Component({
@@ -12,7 +13,7 @@ export class ChooseVideoComponent implements OnInit {
   constructor() {
     this.video = new Video();
   }
-  onPlay(): void {
+  onPlay(value: Language): void {
     console.log(this.video);
   }
   ngOnInit(): void {
