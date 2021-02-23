@@ -1,12 +1,12 @@
 <div class="container py-5">
   <div class="row mb-4">
-    <div class="col-lg-8 mx-auto text-center">
+    <div class="mx-auto text-center">
       <h1 class="display-4">Elegí un video</h1>
       <p class="lead mb-0">Elegí un video y un subtitulo para cada idioma</p>
     </div>
   </div>
   <div class="row">
-    <div class="col-8 mx-auto">
+    <div class="col-12 col-md-8 mx-auto order-md-first order-last">
       <div class="bg-white rounded-lg shadow-sm p-5">
         <div id="card">
           <form role="form">
@@ -15,15 +15,15 @@
                 <div class="form-group">
                   <label><span class="hidden-xs">Configuración de idioma</span></label>
                   <div class="input-group">
-                    <div class="col-6">
+                    <div class="col-sm-6 col-12 p-1">
                       <div>
                         <label>Idioma que hablas</label>
                       </div>
                       <app-language-select [bindingLanguage]="this.video.mainLanguage"></app-language-select>
                     </div>
-                    <div class="col-6">
+                    <div class="col-sm -6 col-12 p-1">
                       <div>
-                        <label>Idioma que queres aprender</label>
+                        <label>Idioma que aprendes</label>
                         <app-language-select [bindingLanguage]="this.video.secondaryLanguage"></app-language-select>
                       </div>
                     </div>
@@ -55,7 +55,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4 mx-auto">
+    <div class="col-12 col-md-4  mx-auto">
       <div class="bg-white rounded-lg shadow-sm p-5">
         <div id="card">
           <p class="lead mb-0">Videos recientes</p>
