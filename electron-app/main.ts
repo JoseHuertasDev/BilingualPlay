@@ -1,0 +1,20 @@
+// src-backend/main.ts
+import { app, BrowserWindow } from "electron";
+import * as path from "path";
+let mainWindow: Electron.BrowserWindow;
+let NODE_ENV : string = process.env.NODE_ENV.toString().trim();
+let DEVELOPMENT: boolean = NODE_ENV=="development";
+app.on("ready", () => {
+    mainWindow = new BrowserWindow({
+        icon: path.join(__dirname, "../dist-angular/bilingual-play-angular/assets/icon.png"),
+        webPreferences: {
+            nodeIntegration: true, // Allows IPC and other APIs
+        }
+    });
+    if(DEVELOPMENT)
+      mainWindow.loadURL("http://localhost:4200/");
+    else
+      mainWindow.loadFile(path.join(__dirname, "../dist-angular/bilingual-play-angular/index.html"));
+});
+
+app.on("window-all-closed", () => {app.quit()});
