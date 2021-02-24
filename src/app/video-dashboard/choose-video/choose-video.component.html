@@ -47,10 +47,11 @@
               {{this.video.secondaryLanguage.name? this.video.secondaryLanguage.name : '...'}}</label>
               <app-subtitle-file-input [subs]="this.video.scondarySubs"></app-subtitle-file-input>
             </div>
-
-            <button type="button" class="subscribe btn btn-primary rounded-pill shadow-sm" (click)="onPlay()">
-              Reproducir
-            </button>
+            <a [routerLink]="['/video-player']">
+              <button type="button" class="subscribe btn btn-primary rounded-pill shadow-sm" (click)="onPlay()">
+                Reproducir
+              </button>
+            </a>
           </form>
         </div>
       </div>

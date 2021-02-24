@@ -10,8 +10,8 @@ import { VideoDashboardModule } from './video-dashboard/video-dashboard.module';
     AppComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     VideoDashboardModule,
   ],
   providers: [],
