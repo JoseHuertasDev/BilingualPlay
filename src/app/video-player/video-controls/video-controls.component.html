@@ -1,0 +1,11 @@
+
+<div id="video-controls">
+  <button type="button" (click)="togglePause()">Play</button>
+  <input type="range" #timeBar value="{{this.timeBarValue}}"
+  (change)="inputChangedPlayingTime(timeBar.value)"
+  (input)="changingPlayingTime(timeBar.value)">
+  <button type="button" (click)="mute()" id="mute">Mute</button>
+  <input type="range" #volumeBar (input)="changingVolume(volumeBar.value)" min="25" max="100" value="{{this.currentVolume}}">
+  <button type="button" (click)="toggleFullScreen()" id="full-screen">Full-Screen</button>
+</div>
+

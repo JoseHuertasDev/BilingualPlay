@@ -6,4 +6,12 @@
   width: 100vw;
   overflow: hidden;
   background-color: black;
+  z-index: 1;
+}
+.controls-container{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
 }

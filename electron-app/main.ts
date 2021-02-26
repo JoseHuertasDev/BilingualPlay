@@ -9,12 +9,14 @@ app.on("ready", () => {
         icon: path.join(__dirname, "../dist-angular/bilingual-play-angular/assets/icon.png"),
         webPreferences: {
             nodeIntegration: true, // Allows IPC and other APIs
+            enableRemoteModule: true, //This allow to acces .remote in the renderer process
         }
     });
     if(DEVELOPMENT)
       mainWindow.loadURL("http://localhost:4200/");
     else
       mainWindow.loadFile(path.join(__dirname, "../dist-angular/bilingual-play-angular/index.html"));
+
 });
 
 app.on("window-all-closed", () => {app.quit()});
