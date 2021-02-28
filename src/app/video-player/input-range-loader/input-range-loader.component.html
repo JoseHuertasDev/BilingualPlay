@@ -1,0 +1,12 @@
+
+  <div class="position-relative d-block input-range-container">
+    <input type="range" #barLoader
+    min={{min}}
+    max={{max}}
+    value="{{inputValue}}"
+    (change)="valueChanged.emit(barLoader.value)"
+    (input)="valueChanging.emit(barLoader.value)">
+    <div class="loader">
+    </div>
+
+  </div>
