@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnDestroy, SimpleChanges } from '@angular/core';
-import { BrowserWindow } from 'electron';
 import { interval, Subscription } from 'rxjs';
+import { faPlay, faPause, faVolumeMute, faVolumeUp, faExpand} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-video-controls',
@@ -17,6 +17,12 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
   @Input() currentTime: number = 0;
   currentVolume: number = 20;
 
+  //Icons
+  playIcon = faPlay;
+  pauseIcon = faPause;
+  muteIcon = faVolumeMute;
+  volumeIcon = faVolumeUp;
+  fullScreenIcon = faExpand;
   constructor() {
   }
 

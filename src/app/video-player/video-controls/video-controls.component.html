@@ -1,11 +1,47 @@
+<div class="container-fluid mb-3" id="video-controls">
+  <div class="row">
+    <div class="col-12">
+      <app-input-range-loader
+      [inputValue]="this.timeBarValue"
+      [colorBar]='"#FF0000"'
+      (valueChanged)="inputChangedPlayingTime($event)"
+      (valueChanging)="changingPlayingTime($event)"
+      ></app-input-range-loader>
+    </div>
+  </div>
+  <div class="row p-1">
+    <div class="d-flex w-100">
+      <div class="mr-auto d-flex align-items-center">
+        <div>
+          <button type="button" class="btn" (click)="togglePause()">
+            <fa-icon [icon]="this.player.playlist.isPlaying? pauseIcon: playIcon"></fa-icon>
+          </button>
+        </div>
+        <div>
+          <button type="button" class="btn" (click)="mute()" id="mute">
+            <fa-icon [icon]="this.player.mute? muteIcon:volumeIcon "></fa-icon>
+          </button>
+        </div>
+        <div class="volume-control">
+          <app-input-range-loader
+          [inputValue]="this.currentVolume"
+          [min]="25"
+          [max]="125"
+          [colorBar]='"white"'
+          (valueChanged)="inputChangedPlayingTime($event)"
+          (valueChanging)="changingVolume($event)"
+          ></app-input-range-loader>
+        </div>
+      </div>
 
-<div id="video-controls">
-  <button type="button" (click)="togglePause()">Play</button>
-  <input type="range" #timeBar value="{{this.timeBarValue}}"
-  (change)="inputChangedPlayingTime(timeBar.value)"
-  (input)="changingPlayingTime(timeBar.value)">
-  <button type="button" (click)="mute()" id="mute">Mute</button>
-  <input type="range" #volumeBar (input)="changingVolume(volumeBar.value)" min="25" max="100" value="{{this.currentVolume}}">
-  <button type="button" (click)="toggleFullScreen()" id="full-screen">Full-Screen</button>
+      <div>
+        <div class="d-block">
+          <button type="button" class="btn" (click)="toggleFullScreen()" id="full-screen">
+            <fa-icon [icon]="fullScreenIcon"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
-

@@ -13,7 +13,7 @@ import { VideoPlayerModule } from './video-player/video-player.module';
     AppRoutingModule,
     BrowserModule,
     VideoDashboardModule,
-    VideoPlayerModule
+    VideoPlayerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
