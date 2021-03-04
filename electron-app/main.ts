@@ -12,6 +12,8 @@ app.on("ready", () => {
             enableRemoteModule: true, //This allow to acces .remote in the renderer process
         }
     });
+    mainWindow.removeMenu();
+
     if(DEVELOPMENT)
       mainWindow.loadURL("http://localhost:4200/");
     else
