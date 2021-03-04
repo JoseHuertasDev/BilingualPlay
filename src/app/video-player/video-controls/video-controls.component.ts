@@ -32,9 +32,10 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
       this.player.volume= Number.parseFloat(currVolume);
   }
   changingPlayingTime(currTime: string): void{
-    if(this.player.state==3){ // If its playing
+    if(this.player.state != 8){ // If its not error
       let targetTime: number = this.videoDuration * (Number.parseFloat(currTime) / 100);
       this.player.time = targetTime;
+      this.player.play();
     }
   }
   inputChangedPlayingTime(currTime: string): void{
