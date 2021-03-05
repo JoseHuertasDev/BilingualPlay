@@ -51,3 +51,5 @@ electron-app/main.ts
 
 # VLC Files
 electron-app/VLC/*
+src/app/.vs/slnx.sqlite
+src/app/.vs/slnx.sqlite-journal

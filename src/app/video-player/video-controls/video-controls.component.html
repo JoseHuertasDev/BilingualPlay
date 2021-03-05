@@ -1,47 +1,69 @@
 <div class="container-fluid mb-3" id="video-controls">
   <div class="row">
     <div class="col-12">
-      <app-input-range-loader
-      [inputValue]="this.timeBarValue"
-      [colorBar]='"#FF0000"'
-      (valueChanged)="inputChangedPlayingTime($event)"
-      (valueChanging)="changingPlayingTime($event)"
-      ></app-input-range-loader>
+      <div class="w-100">
+        <div>
+          <app-input-range-loader
+            [inputValue]="this.timeBarValue"
+            [colorBar]="'#FF0000'"
+            (valueChanged)="this._playerService.changedPlayingTime($event)"
+            (valueChanging)="this._playerService.changingPlayingTime($event)"
+          ></app-input-range-loader>
+        </div>
+        <div class="d-inline">
+          <span class="text-white">
+            {{ millisToMinutesAndSeconds(currentTime) }}/
+            {{ millisToMinutesAndSeconds(videoDuration) }}
+          </span>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row p-1">
     <div class="d-flex w-100">
       <div class="mr-auto d-flex align-items-center">
         <div>
-          <button type="button" class="btn" (click)="togglePause()">
-            <fa-icon [icon]="this.player.playlist.isPlaying? pauseIcon: playIcon"></fa-icon>
+          <button
+            type="button"
+            class="btn"
+            (click)="_playerService.togglePause()"
+          >
+            <fa-icon [icon]="this.player.playing ? pauseIcon : playIcon"></fa-icon>
           </button>
         </div>
         <div>
-          <button type="button" class="btn" (click)="mute()" id="mute">
-            <fa-icon [icon]="this.player.mute? muteIcon:volumeIcon "></fa-icon>
+          <button
+            type="button"
+            class="btn"
+            (click)="_playerService.toggleMute()"
+            id="mute"
+          >
+            <fa-icon [icon]="this.player.mute ? muteIcon : volumeIcon"></fa-icon>
           </button>
         </div>
         <div class="volume-control">
           <app-input-range-loader
-          [inputValue]="this.currentVolume"
-          [min]="25"
-          [max]="125"
-          [colorBar]='"white"'
-          (valueChanged)="inputChangedPlayingTime($event)"
-          (valueChanging)="changingVolume($event)"
+            [inputValue]="(currentVolume$ | async) || 0"
+            [min]="25"
+            [max]="125"
+            [colorBar]="'white'"
+            (valueChanging)="this._playerService.changeVolume($event)"
           ></app-input-range-loader>
         </div>
       </div>
 
       <div>
         <div class="d-block">
-          <button type="button" class="btn" (click)="toggleFullScreen()" id="full-screen">
+          <button
+            type="button"
+            class="btn"
+            (click)="toggleFullScreen()"
+            id="full-screen"
+          >
             <fa-icon [icon]="fullScreenIcon"></fa-icon>
           </button>
         </div>
       </div>
     </div>
-
   </div>
 </div>

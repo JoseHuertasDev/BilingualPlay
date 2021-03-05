@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output,EventEmitter, HostBinding, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter, HostBinding, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-input-range-loader',
@@ -6,6 +6,8 @@ import { Component, Input, OnInit, Output,EventEmitter, HostBinding, ViewChild, 
   styleUrls: ['./input-range-loader.component.scss']
 })
 export class InputRangeLoaderComponent implements OnInit {
+  private _changeDetector: ChangeDetectorRef;
+
   @Output() valueChanged =  new EventEmitter<string>();
   @Output() valueChanging =  new EventEmitter<string>();
 
@@ -20,13 +22,14 @@ export class InputRangeLoaderComponent implements OnInit {
     return this.colorBar;
  }
   @HostBinding("style.--value") get getValue() {
+    this._changeDetector.detectChanges();
     if(this.barLoader){
       return Number.parseFloat(this.barLoader.nativeElement.value) - this.min;
     }
     return this.inputValue - this.min;
   }
-  constructor() {
-
+  constructor( changeDetector : ChangeDetectorRef) {
+    this._changeDetector = changeDetector;
   }
 
   ngOnInit(): void {
