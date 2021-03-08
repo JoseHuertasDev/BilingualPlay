@@ -1,6 +1,7 @@
 import {  Component, OnInit } from '@angular/core';
 import { PlayerService } from 'src/app/services/player.service';
-import { Video } from '../../Models/video';
+import { DashboardSettings } from '../../Models/DashboardSettings';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-choose-video',
@@ -9,14 +10,19 @@ import { Video } from '../../Models/video';
 })
 export class ChooseVideoComponent implements OnInit {
 
-  private video: Video;
+  settigns: DashboardSettings;
   private _playerService: PlayerService;
-  constructor(playerService: PlayerService) {
+  private _routerService: Router;
+
+  constructor(playerService: PlayerService, routerService: Router) {
     this._playerService = playerService;
-    this.video = new Video();
+    this._routerService = routerService;
+    this.settigns = new DashboardSettings();
   }
   onPlay(): void {
-    this._playerService.playVideo(this.video);
+    this._playerService.setVideo(this.settigns.video);
+    //Navigate to the video panel
+    this._routerService.navigateByUrl('/video-player');
   }
   ngOnInit(): void {
   }

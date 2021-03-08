@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { faPlay, faPause, faVolumeMute, faVolumeUp, faExpand} from '@fortawesome/free-solid-svg-icons';
 import { PlayerService } from 'src/app/services/player.service';
@@ -9,7 +9,6 @@ import { PlayerService } from 'src/app/services/player.service';
   styleUrls: ['./video-controls.component.scss'],
 })
 export class VideoControlsComponent implements OnInit, OnDestroy {
-  window: any = (<any>window).require('electron').remote.getCurrentWindow();
 
   //Services
   _ngZone: NgZone;
@@ -19,35 +18,45 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
   currentTimeSubscription: Subscription ;
   videoDurationSubscription: Subscription;
 
-  //Observables
-  currentVolume$: Observable<number>;
-
   //Props
   videoDuration:  number = 0;
   timeBarValue: number = 0;
   currentTime: number = 0;
   player: any;
 
-  //Icons
-  playIcon = faPlay;
-  pauseIcon = faPause;
-  muteIcon = faVolumeMute;
-  volumeIcon = faVolumeUp;
-  fullScreenIcon = faExpand;
+  //Outputs
+  @Output() toggleFullScreen: EventEmitter<void> = new EventEmitter();
+
 
   constructor(playerService: PlayerService, ngZone: NgZone) {
     this._playerService = playerService;
+    this._playerService.playVideo();//Starts video playing
+
     this._ngZone = ngZone;
 
-    this.currentVolume$ = this._playerService.currentVolume.asObservable();
-
+    //Updates the video duration
     this.videoDurationSubscription = this._playerService.videoDuration.subscribe(
       (newValue)=> this.videoDurationChanged(newValue) );
 
+    //Updates the video current time
     this.currentTimeSubscription = this._playerService.currentTime.subscribe(
       (newValue)=>this.currentTimeChanged(newValue) );
 
     this.player = this._playerService.getVLCPlayer();
+  }
+
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void{
+    this.currentTimeSubscription.unsubscribe();
+    this.videoDurationSubscription.unsubscribe();
+  }
+
+  currentTimeChanged(newTime: number) {
+    this._ngZone.run(()=>{ // This is because currentTime is changed outside the ngZone
+      this.currentTime = newTime;
+      this.timeBarValue = (100 / this.videoDuration) * newTime;
+    })
   }
 
   millisToMinutesAndSeconds(millis: number): string {
@@ -56,30 +65,18 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
     return minutes + ":" + (Number.parseInt(seconds) < 10 ? '0' : '') + seconds;
   }
 
-  toggleFullScreen(): void {
-    if(this.window.isFullScreen())
-      this.window.setFullScreen(false);
-    else
-    this.window.setFullScreen(true);
-  }
   videoDurationChanged(newValue: number){
-    this._ngZone.run(()=>{
+    this._ngZone.run(()=>{ // This is because videoDuration is changed outside the ngZone
       this.videoDuration = newValue;
     })
   }
-  currentTimeChanged(newTime: number) {
-    this._ngZone.run(()=>{
-      this.currentTime = newTime;
-      this.timeBarValue = (100 / this.videoDuration) * newTime;
-    })
-  }
-  ngOnInit(): void {
 
-  }
 
-  ngOnDestroy(): void{
-    this.currentTimeSubscription.unsubscribe();
-    this.videoDurationSubscription.unsubscribe();
-  }
 
+  //Icons
+  fullScreenIcon = faExpand;
+  muteIcon = faVolumeMute;
+  playIcon = faPlay;
+  pauseIcon = faPause;
+  volumeIcon = faVolumeUp;
 }

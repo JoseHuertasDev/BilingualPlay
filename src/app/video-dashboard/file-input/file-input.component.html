@@ -1,10 +1,10 @@
 <div class="custom-file">
   <input
     accept="video/*"
-    #inputVideo
+    #inputFile
     type="file"
     class="custom-file-input"
-    id="videoInput"
+    id="fileInput"
     (change)="onFileSelected($event)">
-  <label class="custom-file-label" for="videoInput">{{ video.title? video.title: 'Elegi un video'  }}</label>
+  <label class="custom-file-label" for="fileInput">{{ file.title? file.title: 'Elegi un video'  }}</label>
 </div>

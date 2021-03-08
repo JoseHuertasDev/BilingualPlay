@@ -10,6 +10,8 @@ import { PlayerService } from 'src/app/services/player.service';
 export class PlayerComponent implements OnInit {
   //(<any>window).require Allow us to get the native node modules
   renderer = (<any>window).require("wcjs-renderer");
+  window: any = (<any>window).require('electron').remote.getCurrentWindow();
+
   private _playerService: PlayerService;
   @ViewChild("CanvasPlayer") CanvasPlayer!: ElementRef<HTMLCanvasElement>;
 
@@ -22,5 +24,12 @@ export class PlayerComponent implements OnInit {
     let canvasNative = this.CanvasPlayer.nativeElement;
     let options = { /* Add renderer options here */ }
     this.renderer.bind(canvasNative, this._playerService.getVLCPlayer(), options);
+  }
+
+  toggleFullScreen(): void {
+    if(this.window.isFullScreen())
+      this.window.setFullScreen(false);
+    else
+    this.window.setFullScreen(true);
   }
 }

@@ -10,7 +10,7 @@
             (valueChanging)="this._playerService.changingPlayingTime($event)"
           ></app-input-range-loader>
         </div>
-        <div class="d-inline">
+        <div>
           <span class="text-white">
             {{ millisToMinutesAndSeconds(currentTime) }}/
             {{ millisToMinutesAndSeconds(videoDuration) }}
@@ -43,7 +43,7 @@
         </div>
         <div class="volume-control">
           <app-input-range-loader
-            [inputValue]="(currentVolume$ | async) || 0"
+            [inputValue]="this.player.volume || 0"
             [min]="25"
             [max]="125"
             [colorBar]="'white'"
@@ -57,7 +57,7 @@
           <button
             type="button"
             class="btn"
-            (click)="toggleFullScreen()"
+            (click)="toggleFullScreen.emit()"
             id="full-screen"
           >
             <fa-icon [icon]="fullScreenIcon"></fa-icon>

@@ -1,4 +1,4 @@
-export class Subtitle{
+export class FileModel{
   title: string | undefined;
   route: string | undefined;
 }

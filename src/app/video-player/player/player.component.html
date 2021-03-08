@@ -1,8 +1,8 @@
-<section class="container-fluid p-0">
+<section class="container-fluid p-0" (dblclick)="toggleFullScreen()">
   <div class="player-container text-center">
     <canvas #CanvasPlayer class="canvas-player"></canvas>
   </div>
   <div class="controls-container">
-    <app-video-controls></app-video-controls>
+    <app-video-controls (toggleFullScreen)="toggleFullScreen()"></app-video-controls>
   </div>
 </section>

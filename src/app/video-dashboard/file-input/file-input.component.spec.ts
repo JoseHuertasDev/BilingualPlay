@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VideoFileInputComponent } from './video-file-input.component';
+import { FileInputComponent } from './file-input.component';
 
-describe('VideoFileInputComponent', () => {
-  let component: VideoFileInputComponent;
-  let fixture: ComponentFixture<VideoFileInputComponent>;
+describe('FileInputComponent', () => {
+  let component: FileInputComponent;
+  let fixture: ComponentFixture<FileInputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VideoFileInputComponent ]
+      declarations: [ FileInputComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VideoFileInputComponent);
+    fixture = TestBed.createComponent(FileInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
