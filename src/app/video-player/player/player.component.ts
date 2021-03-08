@@ -21,13 +21,15 @@ export class PlayerComponent implements OnInit {
   intervalUserActivity: Observable<number> | undefined;
   userActivitySubscription: Subscription | undefined;
 
+  private readonly  timeToHideControls: number = 3000;
+
   constructor(playerService: PlayerService) {
     this._playerService = playerService;
     this.setTimeoutUserActive();
   }
 
   setTimeoutUserActive() {
-    this.intervalUserActivity = interval(3000);
+    this.intervalUserActivity = interval(this.timeToHideControls);
     this.userActivitySubscription = this.intervalUserActivity.subscribe(() => { //Updates currentTime periodically
       this.userActive = false;
     })
