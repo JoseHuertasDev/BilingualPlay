@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { interval, Subscription } from 'rxjs';
+import { Component, ElementRef, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
+import { interval, Observable, Subscription } from 'rxjs';
 import { PlayerService } from 'src/app/services/player.service';
 
 @Component({
@@ -13,13 +13,36 @@ export class PlayerComponent implements OnInit {
   window: any = (<any>window).require('electron').remote.getCurrentWindow();
 
   private _playerService: PlayerService;
+
+
   @ViewChild("CanvasPlayer") CanvasPlayer!: ElementRef<HTMLCanvasElement>;
+
+  userActive: boolean = true;
+  intervalUserActivity: Observable<number> | undefined;
+  userActivitySubscription: Subscription | undefined;
 
   constructor(playerService: PlayerService) {
     this._playerService = playerService;
+    this.setTimeoutUserActive();
+  }
+
+  setTimeoutUserActive() {
+    this.intervalUserActivity = interval(3000);
+    this.userActivitySubscription = this.intervalUserActivity.subscribe(() => { //Updates currentTime periodically
+      this.userActive = false;
+    })
+  }
+
+  @HostListener('window:mousemove') refreshUserState() {
+    //When the mouse moves set the user as active
+    this.userActive = true;
+    this.userActivitySubscription?.unsubscribe();
+    this.setTimeoutUserActive(); // Restarts the count to set userActive as false
   }
   ngOnInit(): void {
   }
+
+
   ngAfterViewInit(): void{
     let canvasNative = this.CanvasPlayer.nativeElement;
     let options = { /* Add renderer options here */ }
