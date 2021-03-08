@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 
-import {BehaviorSubject, interval} from 'rxjs';
+import {BehaviorSubject, interval, Subscription} from 'rxjs';
 import { FileModel } from '../Models/FileModel';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class PlayerService {
   videoDuration : BehaviorSubject<number> = new BehaviorSubject(0);
   currentTime: BehaviorSubject<number> = new BehaviorSubject(0);
 
-  intervalCurrentVideo: any;
+  intervalCurrentVideo: Subscription | undefined;
 
   constructor() { }
 
