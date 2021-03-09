@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 
 import {BehaviorSubject, interval, Subscription} from 'rxjs';
-import { FileModel } from '../Models/FileModel';
+import { FileModel } from '@Models/FileModel';
 
 @Injectable({
   providedIn: 'root'

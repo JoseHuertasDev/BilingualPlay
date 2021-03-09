@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { FileModel } from 'src/app/Models/FileModel';
+import { FileModel } from '@Models/FileModel';
 @Component({
   selector: 'app-file-input',
   templateUrl: './file-input.component.html',

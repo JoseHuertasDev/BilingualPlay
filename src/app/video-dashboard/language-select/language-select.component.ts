@@ -1,6 +1,6 @@
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { Language } from '../../Models/language';
+import { Language } from '@Models/language';
 import {LANGUAGES} from './Languages';
 
 @Component({

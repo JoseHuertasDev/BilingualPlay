@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FileModel } from '../Models/FileModel';
-
+import {IpcRequest} from '@Channels/IpcRequestInterface'
+import { FileModel } from '@Models/FileModel';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export class SubtitleService {
   constructor() { }
 
   setFile(subtitleFile: FileModel): void{
+
     this.subtitleFile = subtitleFile;
   }
 }

@@ -15,6 +15,10 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
+    "paths": {
+      "@Channels/*":["./electron-app/src/channels/interfaces/*"],
+      "@Models/*":["./src/app/models/*"]
+    },
     "module": "es2020",
     "lib": [
       "es2018",
