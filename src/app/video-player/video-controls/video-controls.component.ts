@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy, NgZone, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { faPlay, faPause, faVolumeMute, faVolumeUp, faExpand} from '@fortawesome/free-solid-svg-icons';
-import { PlayerService } from 'src/app/services/player.service';
+import { PlayerService } from 'src/app/services/player/player.service';
+import { SubtitleService } from 'src/app/services/subtitle/subtitle.service';
 
 @Component({
   selector: 'app-video-controls',
@@ -13,6 +14,7 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
   //Services
   _ngZone: NgZone;
   _playerService: PlayerService;
+  _subtitleServce: SubtitleService;
 
   //Subscritpions
   currentTimeSubscription: Subscription ;
@@ -28,10 +30,11 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
   @Output() toggleFullScreen: EventEmitter<void> = new EventEmitter();
 
 
-  constructor(playerService: PlayerService, ngZone: NgZone) {
+  constructor(playerService: PlayerService, ngZone: NgZone, subtitleService: SubtitleService) {
+    this._subtitleServce = subtitleService;
     this._playerService = playerService;
     this._playerService.playVideo();//Starts video playing
-
+    this._subtitleServce.playSubs();
     this._ngZone = ngZone;
 
     //Updates the video duration
