@@ -2,7 +2,13 @@
   <div class="player-container text-center">
     <canvas #CanvasPlayer class="canvas-player"></canvas>
   </div>
-  <div class="controls-container" *ngIf="userActive">
-    <app-video-controls (toggleFullScreen)="toggleFullScreen()"></app-video-controls>
+  <div class="bottom-container">
+    <section class="container-fluid p-0">
+      <section class="row p-0 m-0" [ngClass]="{'d-none' : userIddle}">
+        <div class="col-12 m-0">
+          <app-video-controls (toggleFullScreen)="toggleFullScreen()"></app-video-controls>
+        </div>
+      </section>
+    </section>
   </div>
 </section>
