@@ -1,16 +1,25 @@
 // src-backend/main.ts
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
+import * as fs from 'fs'
+import { IpcChannelInterface } from "./channels/interfaces/IpcChannelInterface";
+import { SubtitleChannel } from "./channels/SubtitleChannel";
 
 class Main {
   private mainWindow: BrowserWindow;
   private DEVELOPMENT: boolean ;
 
-  public init() {
+  public init(ipcChannels: IpcChannelInterface[]) {
     this.configDevelopmentMode();
     app.on('ready', ()=>{this.createWindow(this.DEVELOPMENT)});
     app.on('window-all-closed', this.onWindowAllClosed);
     app.on('activate', this.onActivate);
+
+    this.registerIpcChannels(ipcChannels);
+  }
+
+  private registerIpcChannels(ipcChannels: IpcChannelInterface[]) {
+    ipcChannels.forEach(channel => channel.listen());
   }
 
   private configDevelopmentMode(){
@@ -29,12 +38,13 @@ class Main {
     }
   }
 
+
   private createWindow(development: boolean) {
     this.mainWindow = new BrowserWindow({
       icon: path.join(__dirname, "../../dist-angular/bilingual-play-angular/assets/icon.png"),
       webPreferences: {
         nodeIntegration: true, // Allows IPC and other APIs
-        enableRemoteModule: true, //This allow to acces .remote in the renderer process
+        enableRemoteModule: true, //This allow to access .remote in the renderer process
       }
     });
     this.mainWindow.removeMenu();
@@ -55,4 +65,6 @@ class Main {
   }
 }
 
-(new Main()).init();
+(new Main()).init([
+  new SubtitleChannel()
+]);
