@@ -1,8 +1,8 @@
 import {  Component, OnInit } from '@angular/core';
-import { PlayerService } from 'src/app/services/player.service';
+import { PlayerService } from 'src/app/services/player/player.service';
 import { DashboardSettings } from '@Models/DashboardSettings';
 import { Router } from '@angular/router';
-import { SubtitleService } from 'src/app/services/subtitle.service';
+import { SubtitleService } from 'src/app/services/subtitle/subtitle.service';
 
 @Component({
   selector: 'app-choose-video',
