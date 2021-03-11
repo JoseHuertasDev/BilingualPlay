@@ -16,8 +16,11 @@
     "importHelpers": true,
     "target": "es2015",
     "paths": {
-      "@Channels/*":["./electron-app/src/channels/interfaces/*"],
-      "@Models/*":["./src/app/models/*"]
+      "@Models/*":["./src/app/models/*"],
+      "@Channels/*":["./electron-app/src/channels/*"],
+      "@HelpersElectron/*":["./electron-app/src/helpers/*"],
+      "@ClassesElectron/*":["./electron-app/src/classes/*"],
+
     },
     "module": "es2020",
     "lib": [
