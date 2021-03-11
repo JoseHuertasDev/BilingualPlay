@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
 import { interval, Observable, Subscription } from 'rxjs';
-import { PlayerService } from 'src/app/services/player.service';
+import { PlayerService } from 'src/app/services/player/player.service';
 
 @Component({
   selector: 'app-player',
@@ -17,7 +17,7 @@ export class PlayerComponent implements OnInit {
 
   @ViewChild("CanvasPlayer") CanvasPlayer!: ElementRef<HTMLCanvasElement>;
 
-  userActive: boolean = true;
+  userIddle: boolean = false;
   intervalUserActivity: Observable<number> | undefined;
   userActivitySubscription: Subscription | undefined;
 
@@ -31,13 +31,13 @@ export class PlayerComponent implements OnInit {
   setTimeoutUserActive() {
     this.intervalUserActivity = interval(this.timeToHideControls);
     this.userActivitySubscription = this.intervalUserActivity.subscribe(() => { //Updates currentTime periodically
-      this.userActive = false;
+      this.userIddle = true;
     })
   }
 
   @HostListener('window:mousemove') refreshUserState() {
     //When the mouse moves set the user as active
-    this.userActive = true;
+    this.userIddle = false;
     this.userActivitySubscription?.unsubscribe();
     this.setTimeoutUserActive(); // Restarts the count to set userActive as false
   }
