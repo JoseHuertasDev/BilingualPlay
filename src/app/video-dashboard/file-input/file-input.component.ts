@@ -8,6 +8,8 @@ import { FileModel } from '@Models/FileModel';
 export class FileInputComponent implements OnInit {
   @ViewChild('inputFile') inputFile!: ElementRef;
   @Input() file!: FileModel ;
+  @Input() title!: string;
+  @Input() types!: string;
   constructor() {
   }
 
