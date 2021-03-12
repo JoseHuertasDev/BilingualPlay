@@ -14,7 +14,6 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
   //Services
   _ngZone: NgZone;
   _playerService: PlayerService;
-  _subtitleServce: SubtitleService;
 
   //Subscritpions
   currentTimeSubscription: Subscription ;
@@ -30,11 +29,9 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
   @Output() toggleFullScreen: EventEmitter<void> = new EventEmitter();
 
 
-  constructor(playerService: PlayerService, ngZone: NgZone, subtitleService: SubtitleService) {
-    this._subtitleServce = subtitleService;
+  constructor(playerService: PlayerService, ngZone: NgZone) {
     this._playerService = playerService;
     this._playerService.playVideo();//Starts video playing
-    this._subtitleServce.playSubs();
     this._ngZone = ngZone;
 
     //Updates the video duration

@@ -28,24 +28,25 @@ export class SubtitleService {
     this._playerService = playerService;
 
   }
-  private timeoutCurrentVideo(): void{ //Every 3s updates the current time
-    this.intervalCurrentVideo = interval(1000).subscribe(() => { //Updates currentTime periodically
+  private timeoutCurrentVideo(): void{
+    this.intervalCurrentVideo = interval(1500).subscribe(() => { //Updates currentTime periodically
       this.UpdateSubitleFromTime(this._playerService._currentTime);
     })
   }
-  private UpdateSubitleFromTime(currentTime: number){
-    this.mainSubs?.filter((data)=>{
+  private findSubtitleByTime(subtitles: DataSubtitle[], time: number): DataSubtitle | undefined{
+    return subtitles.find(data => {
       let startTime = data.start?data.start: 0;
       let endTime = data.end?data.end: 0;
-      if(currentTime >= startTime && currentTime<endTime){
-        if(this.currentSubtitle != data.text )
-          this.currentSubtitle = data.text;
-      }
-      else
-        this.currentSubtitle = undefined;
+      return (time >= startTime && time<endTime)
+    });
+  }
 
-      return this.currentSubBehavior.next(this.currentSubtitle);
-    })
+  private UpdateSubitleFromTime(currentTime: number){
+    if(this.mainSubs){
+      let newSubtitle = this.findSubtitleByTime(this.mainSubs, currentTime);
+      this.currentSubtitle =  newSubtitle? newSubtitle.text: undefined;
+      this.currentSubBehavior.next(this.currentSubtitle);
+    }
   }
   playSubs(){
     this.timeoutCurrentVideo();

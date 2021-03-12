@@ -4,10 +4,11 @@ import { VideoControlsComponent } from './video-controls/video-controls.componen
 import { PlayerComponent } from './player/player.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InputRangeLoaderComponent } from './input-range-loader/input-range-loader.component';
+import { SubtitleDisplayComponent } from './subtitle-display/subtitle-display.component';
 
 
 @NgModule({
-  declarations: [PlayerComponent, VideoControlsComponent, InputRangeLoaderComponent],
+  declarations: [PlayerComponent, VideoControlsComponent, InputRangeLoaderComponent, SubtitleDisplayComponent],
   imports: [
     CommonModule,
     FontAwesomeModule

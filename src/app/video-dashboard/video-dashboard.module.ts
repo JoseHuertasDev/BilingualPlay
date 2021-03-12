@@ -11,7 +11,7 @@ import { AppRoutingModule } from '../app-routing.module';
   declarations: [
     ChooseVideoComponent,
     FileInputComponent,
-    LanguageSelectComponent,
+    LanguageSelectComponent
   ],
   imports: [
     AppRoutingModule,

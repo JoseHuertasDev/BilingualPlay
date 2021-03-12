@@ -4,6 +4,11 @@
   </div>
   <div class="bottom-container">
     <section class="container-fluid p-0">
+      <section class="row p-0 m-0">
+        <div class="col-12 m-0">
+          <app-subtitle-display> </app-subtitle-display>
+        </div>
+      </section>
       <section class="row p-0 m-0" [ngClass]="{'d-none' : userIddle}">
         <div class="col-12 m-0">
           <app-video-controls (toggleFullScreen)="toggleFullScreen()"></app-video-controls>
