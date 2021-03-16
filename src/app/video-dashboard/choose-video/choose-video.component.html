@@ -47,13 +47,16 @@
               <app-file-input
               [types]="'.srt, .vtv'"
               [title]="'Elegir subtitulos'"
-              [file]="this.settigns.mainSubs">
+              [file]="this.settigns.video.mainSubs">
               </app-file-input>
             </div>
             <div class="form-group">
               <label>Subtitulos en
               {{this.settigns.secondaryLanguage.name? this.settigns.secondaryLanguage.name : '...'}}</label>
-              <app-file-input [types]="'.srt, .vtv'" [title]="'Elegir subtitulos'" [file]="this.settigns.scondarySubs"></app-file-input>
+              <app-file-input
+              [types]="'.srt, .vtv'"
+              [title]="'Elegir subtitulos'"
+              [file]="this.settigns.video.secondarySubs"></app-file-input>
             </div>
             <button type="button" class="subscribe btn btn-primary rounded-pill shadow-sm" (click)="onPlay()">
               Reproducir
