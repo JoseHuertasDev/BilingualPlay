@@ -1,8 +1,15 @@
 <section class="container-fluid">
   <div class="row">
     <div class="col-12 text-center">
-      <div class="subttitle-text" *ngIf=" currentSubtitle">
-        {{ currentSubtitle }}
+      <div class="subttitle-text" *ngIf="secondarySubtitle">
+        <span [innerHTML]="secondarySubtitle"></span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-center">
+      <div class="subttitle-text" *ngIf="mainSubtitle">
+        <span [innerHTML]="mainSubtitle"></span>
       </div>
     </div>
   </div>

@@ -25,9 +25,14 @@ export class ChooseVideoComponent implements OnInit {
 
     this.settigns = new DashboardSettings();
   }
-  onPlay(): void {
+
+  async onPlay(): Promise<void> {
     this._playerService.setVideo(this.settigns.video);
-    this._subtitleService.setFile(this.settigns.mainSubs);
+    if(this.settigns.video.mainSubs)
+      await this._subtitleService.addSubtitle(this.settigns.video.mainSubs);
+    if(this.settigns.video.secondarySubs){
+      await this._subtitleService.addSubtitle(this.settigns.video.secondarySubs);
+    }
     //Navigate to the video panel
     this._routerService.navigateByUrl('/video-player');
   }

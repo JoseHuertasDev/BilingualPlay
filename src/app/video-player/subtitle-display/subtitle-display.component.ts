@@ -11,7 +11,8 @@ export class SubtitleDisplayComponent implements OnInit {
 
   private _subtitleService: SubtitleService;
   private currentSubtitleSubscription: Subscription;
-  currentSubtitle: string | undefined;
+  mainSubtitle: string | undefined;
+  secondarySubtitle: string | undefined;
   private _ngZone: NgZone;
 
   constructor( subtitleService: SubtitleService, ngZone: NgZone) {
@@ -20,9 +21,9 @@ export class SubtitleDisplayComponent implements OnInit {
     this._subtitleService.playSubs();
     this.currentSubtitleSubscription = this._subtitleService.currentSubBehavior.subscribe(data=>{
       this._ngZone.run(()=>{
-        console.log(data);
-        if(data !== this.currentSubtitle)
-          this.currentSubtitle = data;
+        if(this.mainSubtitle !== data[0]) this.mainSubtitle = data[0];
+        if(this.secondarySubtitle !== data[1]) this.secondarySubtitle = data[1];
+
       })
     });
    }

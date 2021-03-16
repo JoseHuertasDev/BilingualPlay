@@ -11,17 +11,15 @@ import { BehaviorSubject, interval, Subscription } from 'rxjs';
   providedIn: 'root'
 })
 export class SubtitleService {
-  private subtitleFile: FileModel | undefined;
+  private subs = new Array<Array<DataSubtitle>>();
+  private texts = new Array<string | undefined>();
+
   private _playerService: PlayerService;
   private _ipcService: IpcService;
-  private currentSubtitle: string | undefined = undefined;
 
-  currentSubBehavior = new BehaviorSubject(this.currentSubtitle);
+  currentSubBehavior = new BehaviorSubject(this.texts);
 
-
-  private mainSubs?: Array<DataSubtitle>;
-
-  intervalCurrentVideo: Subscription | undefined;
+  private intervalCurrentVideo: Subscription | undefined;
 
   constructor(ipcService: IpcService, playerService: PlayerService) {
     this._ipcService = ipcService;
@@ -29,7 +27,7 @@ export class SubtitleService {
 
   }
   private timeoutCurrentVideo(): void{
-    this.intervalCurrentVideo = interval(1500).subscribe(() => { //Updates currentTime periodically
+    this.intervalCurrentVideo = interval(1000).subscribe(() => { //Updates currentTime periodically
       this.UpdateSubitleFromTime(this._playerService._currentTime);
     })
   }
@@ -42,27 +40,26 @@ export class SubtitleService {
   }
 
   private UpdateSubitleFromTime(currentTime: number){
-    if(this.mainSubs){
-      let newSubtitle = this.findSubtitleByTime(this.mainSubs, currentTime);
-      this.currentSubtitle =  newSubtitle? newSubtitle.text: undefined;
-      this.currentSubBehavior.next(this.currentSubtitle);
-    }
+    this.subs.forEach((subtitleElement, index) => {
+      let newSubtitle = this.findSubtitleByTime(subtitleElement, currentTime);
+      this.texts[index] = newSubtitle? newSubtitle.text: undefined;
+    });
+    this.currentSubBehavior.next(this.texts);
   }
   playSubs(){
     this.timeoutCurrentVideo();
   }
-  async setFile(subtitleFile: FileModel): Promise<void>{
-    this.subtitleFile = subtitleFile;
-
+  async addSubtitle(subtitleFile: FileModel): Promise<void>{
     if(subtitleFile.route){
       let response = await this._ipcService.send< GenericResult<Array<DataSubtitle>> >
       (Constants.SUBTITLE_CHANNEL,
       {
         params: [subtitleFile.route]
       });
-      if(response.errors)
-        this.mainSubs = response.value;
+      if(response.value)
+        this.subs.push(response.value);
       console.log(response.value);
-     }
+    }
   }
+
 }
