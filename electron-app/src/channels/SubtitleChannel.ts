@@ -7,8 +7,8 @@ import * as fs from 'fs';
 import { parseSync, Cue } from 'subtitle'
 import { Constants } from "../helpers/Constants";
 import { DataSubtitle } from "../Classes/DataSubtitle";
-
-
+import * as jschardet from 'jschardet';
+import * as iconv from 'iconv-lite';
 
 export class SubtitleChannel implements IpcChannelInterface {
 
@@ -35,17 +35,22 @@ export class SubtitleChannel implements IpcChannelInterface {
     });
 
   }
-
+  private transformEncoding(content:Buffer){
+    let detectedEncoding = jschardet.detect(content).encoding.toLowerCase();
+    return iconv.decode(content, detectedEncoding);
+  }
   private getSubsFromPath(subtitlePath: string,
     result: GenericResult<Array<DataSubtitle>>,
     onFinish: CallableFunction){
-    fs.readFile(subtitlePath, (err, data) => {
+    fs.readFile(subtitlePath, (err, data: Buffer) => {
       if (err) {
         result.AddError(err.message);
         return;
       }
+
       let parsedSubtitles: Array<DataSubtitle>= [];
-      parseSync(data.toString()).forEach((value)=>{
+      let encodedData = this.transformEncoding(data);
+      parseSync(encodedData).forEach((value)=>{
         parsedSubtitles.push(<DataSubtitle>value.data.valueOf());
       });
 
